@@ -22,6 +22,7 @@ from lxml import etree
 from PostgresBM25Retriever import PostgresBM25Retriever
 from ScoredCrossEncoderReranker import ScoredCrossEncoderReranker
 from tqdm import tqdm
+from ColBERTDocumentCompressor import ColBERTDocumentCompressor
 
 
 class RAGHelper:
@@ -422,6 +423,12 @@ class RAGHelper:
         if self.rerank_model == "flashrank":
             self.logger.info("Setting up the FlashrankRerank.")
             self.compressor = FlashrankRerank(top_n=self.rerank_k)
+        elif self.rerank_model.startswith("colbert"):
+            self.logger.info("Setting up the ColBERT reranker.")
+            colbert_config = ColBERTConfig()
+            self.colbert = ColBERT.from_pretrained(self.rerank_model, config=colbert_config)
+            self.searcher = Searcher(self.colbert, config=colbert_config)
+            self.compressor = ColBERTDocumentCompressor(self.searcher, top_n=self.rerank_k)
         else:
             self.logger.info("Setting up the ScoredCrossEncoderReranker.")
             self.compressor = ScoredCrossEncoderReranker(
