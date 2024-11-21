@@ -1,5 +1,5 @@
 from langchain_core.documents import BaseDocumentCompressor, Document
-from colbert.search import Searcher
+from colbert import Searcher
 from typing import Sequence, Optional
 
 class ColBERTDocumentCompressor(BaseDocumentCompressor):
