@@ -1,6 +1,7 @@
 from langchain_core.documents import BaseDocumentCompressor, Document
 from colbert import Searcher
 from typing import Sequence, Optional
+from langchain_core.callbacks import Callbacks
 
 class ColBERTDocumentCompressor(BaseDocumentCompressor):
     """Document compressor that uses ColBERT for reranking."""
