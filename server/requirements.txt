@@ -10,8 +10,9 @@ langchain-google-genai==1.0.7
 langchain-openai==0.1.9
 langchain-ollama==0.1.1
 sentence-transformers==2.6.1
-transformers==4.43.1
+transformers==4.45.1
 bitsandbytes==0.42.0
+intel_extension_for_pytorch
 flask
 python-dotenv==1.0.1
 docx2txt==0.8
@@ -36,6 +37,7 @@ pydantic==2.7.4
 pydantic_core==2.18.4
 psycopg2-binary==2.9.9
 colbert-ai[torch,faiss-gpu]
+colbert-ir
 torch==2.5.1
 torchvision
 torchaudio

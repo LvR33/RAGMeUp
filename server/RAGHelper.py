@@ -23,6 +23,8 @@ from PostgresBM25Retriever import PostgresBM25Retriever
 from ScoredCrossEncoderReranker import ScoredCrossEncoderReranker
 from tqdm import tqdm
 from ColBERTDocumentCompressor import ColBERTDocumentCompressor
+from colbert.infra import ColBERTConfig
+from colbert import Searcher
 
 
 class RAGHelper:
