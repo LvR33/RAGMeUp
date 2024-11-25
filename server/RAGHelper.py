@@ -22,6 +22,7 @@ from lxml import etree
 from PostgresBM25Retriever import PostgresBM25Retriever
 from ScoredCrossEncoderReranker import ScoredCrossEncoderReranker
 from tqdm import tqdm
+from ragatouille import RAGPretrainedModel
 
 
 class RAGHelper:
@@ -425,7 +426,7 @@ class RAGHelper:
         else:
             self.logger.info("Setting up the ScoredCrossEncoderReranker.")
             self.compressor = ScoredCrossEncoderReranker(
-                model=HuggingFaceCrossEncoder(model_name=self.rerank_model),
+                model=RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0"),
                 top_n=self.rerank_k
             )
         self.logger.info("Setting up the ContextualCompressionRetriever.")

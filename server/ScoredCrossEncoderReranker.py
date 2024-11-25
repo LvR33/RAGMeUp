@@ -7,6 +7,8 @@ from langchain_core.callbacks import Callbacks
 from langchain_core.documents import BaseDocumentCompressor, Document
 
 from langchain.retrievers.document_compressors.cross_encoder import BaseCrossEncoder
+from ragatouille import RAGPretrainedModel
+
 
 
 class ScoredCrossEncoderReranker(BaseDocumentCompressor):
@@ -39,6 +41,16 @@ class ScoredCrossEncoderReranker(BaseDocumentCompressor):
         Returns:
             A sequence of compressed documents.
         """
+
+        RAG = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
+
+        index_path = RAG.index(
+            index_name="my_index_with_ids_and_metadata",
+            collection=documents,
+            document_ids=[doc.id for doc in document],
+            document_metadatas=[doc.metadata for doc in documents],
+        )
+
         scores = self.model.score([(query, doc.page_content) for doc in documents])
         docs_with_scores = list(zip(documents, scores))
         result = sorted(docs_with_scores, key=operator.itemgetter(1), reverse=True)
